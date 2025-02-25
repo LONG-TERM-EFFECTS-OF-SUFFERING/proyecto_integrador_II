@@ -1,5 +1,5 @@
 import unittest
-from math_operations import divide
+from math_operations import add, multiply, divide
 
 
 
