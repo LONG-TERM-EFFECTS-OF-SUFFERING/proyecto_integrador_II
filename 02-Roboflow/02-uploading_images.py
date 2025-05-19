@@ -10,12 +10,12 @@ api_key = os.getenv("API_KEY")
 
 rf = roboflow.Roboflow(api_key=api_key)
 workspace_id = "gray-tkjsd"
-project_id = "character_detection-11dic"
+project_id = "character_detection-oxmfn"
 project = rf.workspace(workspace_id).project(project_id)
 
 split = {
 	"train": 0.7,
-	"val": 0.2,
+	"valid": 0.2,
 	"test": 0.1
 }
 
@@ -27,12 +27,12 @@ def upload_images_with_label(data_dir: str, max_files_per_label: int = 100):
 			image_files = image_files[:max_files_per_label]
 			total = len(image_files)
 			train_end = int(split["train"] * total)
-			val_end = train_end + int(split["val"] * total)
+			val_end = train_end + int(split["valid"] * total)
 			for idx, file in enumerate(image_files):
 				if idx < train_end:
 					subset = "train"
 				elif idx < val_end:
-					subset = "val"
+					subset = "valid"
 				else:
 					subset = "test"
 				image_path = os.path.join(path, file)
@@ -45,4 +45,4 @@ def upload_images_with_label(data_dir: str, max_files_per_label: int = 100):
 				)
 
 upload_images_with_label("data", 10)
-upload_images_with_label("data", 10)
+
